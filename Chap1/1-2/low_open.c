@@ -14,7 +14,7 @@ int main(void)
 		error_handling("open() error!");
 	printf("file descriptor: %d \n",fd);
 	
-	if(write(fd, buf, sizeof(buf))==-1)
+	if(write(fd, buf, sizeof(buf))==-1) //fd에 저장된 파일 디스크립터에 해당하는 파일에 buf에 저장된 데이터를 전송한다.
 		error_handling("write() error!");
 	close(fd);
 	return 0;
