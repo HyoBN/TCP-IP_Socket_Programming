@@ -10,9 +10,9 @@ int socket(int domain, int type, int protocol);
 
 ------
 
-### domain : 프로토콜 체계.
+## domain : 프로토콜 체계.
 
-#### 프로토콜 체계의 종류.
+### 프로토콜 체계의 종류.
 
 - PF_INET : IPv4 인터넷 프로토콜 체계.
 - PF_INET6 : IPv6 인터넷 프로토콜 체계.
@@ -23,12 +23,15 @@ int socket(int domain, int type, int protocol);
 **주로 PF_INET(IPv4 인터넷  프로토콜 체계)를 사용.**
 
 
-### type : 소켓의 타입.
+
+## type : 소켓의 타입.
 
 
-#### 1. 연결지향형 소켓(SOCK_STREAM).
+
+### 1. 연결지향형 소켓(SOCK_STREAM).
 
 > socket 함수의 두 번째 인자로 SOCK_STREAM을 전달하면 연결지향형 소켓이 생성된다.
+
 
 **연결지향형 소켓의 데이터 송수신 방식 특징**
 1. 중간에 데이터가 소멸되지 않고 목적지로 전송된다.
@@ -37,8 +40,10 @@ int socket(int domain, int type, int protocol);
 > 이를 공장의 컨베이어 벨트에 비유할 수 있다.
 
 
-#### 2. 비 연결지향형 소켓(SOCK_DGRAM).
+
+### 2. 비 연결지향형 소켓(SOCK_DGRAM).
 > socket 함수의 두 번째 인자로 SOCK_DGRAM을 전달하면 비 연결지향형 소켓이 생성된다.
+
 
 **비 연결지향형 소켓의 데이터 송수신 방식 특징**
 1. 전송된 순서에 상관없이 가장 빠른 전송을 지향한다.
@@ -48,6 +53,7 @@ int socket(int domain, int type, int protocol);
 > 이를 퀵 배달 서비스에 비유할 수 있다.
 
 
-### protocol : 프로토콜 선택.
-> domain, type 으로도 소켓 생성하는데 충분하지만 하나의 프로토콜 체계 안에 데이터의 전송방식이 동일한 프로토콜이 둘 이상 존재하는 경우, 
+
+## protocol : 프로토콜 선택.
+> domain, type 두 매개변수 만으로도 소켓 생성하는데 충분하지만 하나의 프로토콜 체계 안에 데이터의 전송방식이 동일한 프로토콜이 둘 이상 존재하는 경우, 
 > 그 안에서 프로토콜이 나뉘는 상황에서 프로토콜을 구체화하기 위해 필요하다.
