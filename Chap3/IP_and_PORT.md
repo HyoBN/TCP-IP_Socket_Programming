@@ -50,11 +50,13 @@ addr.sin_family=AF_INET;  //주소체계 지정.
 addr.sin_addr.s_addr=inet_addr(serv_ip); // 문자열 기반의 IP주소 초기화. 
 addr.sin_port=htons(atoi(serv_port));  // 문자열 기반의 PORT번호 초기화.
 ```
-> IP주소를 초기화할 때, INADDR_ANY 상수 활용 가능.
+> **IP주소를 초기화할 때, INADDR_ANY 상수 활용 가능.**
+
 >> 소켓이 동작하는 컴퓨터의 IP주소가 자동으로 할당되기 때문에 IP주소를 직접 입력해줄 필요가 없고,
+
 >> 할당 받은 여러 개의 IP중 어떤 주소를 통해서 데이터가 들어오던 PORT번호만 일치하면 수신할 수 있다.
 
->>>따라서 서버프로그램의 구현에서 많이 선호되는 방법이다.
+>>> 따라서 서버프로그램의 구현에서 많이 선호되는 방법이다.
 
 
 
