@@ -31,7 +31,7 @@ A 소켓에서 B 소켓으로 데이터를 송신하고 close함수를 호출한
 ## 우아한 종료를 위한 shutdown 함수
 
 ```c
-#include <sys/sockete.h>
+#include <sys/socket.h>
 int shutdown(int sock, int howto);
 ```
 - sock : 종료할 소켓의 파일 디스크립터 전달.
@@ -58,7 +58,7 @@ int shutdown(int sock, int howto);
 그 문자와 일치하는 데이터가 파일에 존재할 수 있기 때문에 불가능하다.  
 
 - 클라이언트는 EOF의 수신을 함수의 반환 값을 통해 확인 가능하기 때문에 서버가 EOF를 전달하기만 하면 문제가 해결된다!
-
+- read 함수는 EOF를 만나면 0을 반환한다!! 이를 활용!
 
 - 출력 스트림을 종료하면 상대 호스트로 EOF가 전송된다.
 - close 함수호출을 통해 입출력 스트림을 모두 종료해줘도 EOF가 전송되지만, 더이상 데이터를 수신할 수 없게 된다.
