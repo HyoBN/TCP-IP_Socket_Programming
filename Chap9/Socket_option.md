@@ -66,15 +66,22 @@ input buffer size : 87380
 output buffer size : 87380
 이 나옴.
 
-책 결과값으로는 87380, 16384가 나와야하는데 와 input, output buffer 사이즈가 같게 나올까  
+책 결과값으로는 87380, 16384가 나와야하는데 왜 input, output buffer 사이즈가 같게 나올까?  
+단순 시스템 차이인지 구름ide에서 이유가 있어서 그렇게 설정한 것인지 또, 시스템별로 어느정도의 차이가 있는지 궁금해졌다.  
 
-구글링을 해보니 터미널 창에서 
-> sysctl -a | grep mem
-정상적인 실행 결과 : https://rocksea.tistory.com/64
+구글링을 해보니 터미널 창에서,  
+> sysctl -a | grep mem  
+정상적인 실행 결과 : https://rocksea.tistory.com/64  
 입력하면 각 버퍼의 기존값을 볼 수 있다길래 실행시켜보니  
-"kernel.unprivileged_userns_apparmor_policy"  
-"stable_secret"  
-이라고 뜨고 버퍼 크기를 알려주지 않음 왜 알려주지 않을까?  -> 구름에 문의 해놓았음!! 담주 월욜에 답변오면 정리해서 올려야지!
+reading key "kernel.unprivileged_userns_apparmor_policy"  
+reading key "net.ipv6.conf.all.stable_secret"  
+이런식으로 뜨고 버퍼 크기를 알려주지 않음. 왜 알려주지 않는 이유에 대해서 구름에 문의 해놓았으니 답변오면 올려야지.
+
+Goorm forum에 문의한 결과)
+
+![screen_shot](./cap.PNG)
+
+음.... 그럼 도커 컨테이너는 왜 버퍼 크기를 못 보게 하는 걸까  
 
 웹 컴파일러에서 실행해본 결과는(두 가지 컴파일러로 돌려봄),  
 input buffer size : 131072  
@@ -82,6 +89,7 @@ output buffer size : 16384
 가 나옴.  이 두 수는 모두 2의 배수이다. 87380은 어디서 나온 숫자일까?
 이건 window에서 실행한 거라 책과는 다른 결과가 나온 것으로 생각됨.  
 시스템마다 버퍼의 크기는 다르기 때문!
+
 
 
 일단 구름IDE가 아닌 기존 리눅스 환경에서는 값이 책과 동일하게 나오는지 확인해보고,  
