@@ -79,7 +79,7 @@ reading key "net.ipv6.conf.all.stable_secret"
 
 Goorm forum에 문의한 결과)
 
-![screen_shot](./cap.PNG)
+![cap](https://user-images.githubusercontent.com/50162252/122038455-920c2480-ce10-11eb-87a1-7b415c5ef963.PNG)
 
 음.... 그럼 도커 컨테이너는 왜 버퍼 크기를 못 보게 하는 걸까  
 
