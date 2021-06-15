@@ -25,7 +25,13 @@ int main(int argc, char *argv[])
 	if(serv_sock==-1)
 		error_handling("socket() error!");
 	
-	 memset(&serv_adr, 0, sizeof(serv_adr));
+	
+	optlen=sizeof(option);
+	option=TRUE;
+	setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void*)&option, optlen);
+	// SO_REUSEADDR 옵션의 값을 true 로 변경 -> time-wait 상태에 있는 소켓의 PORT번호를 할당 가능하게 바꿈!
+	
+	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
 	serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
 	serv_adr.sin_port=htons(atoi(argv[1]));
