@@ -64,8 +64,9 @@ pid_t fork(void);
 
 2. 새 터미널 창을 열어서,  
 ![2](https://user-images.githubusercontent.com/50162252/122644729-b8ec9280-d151-11eb-944f-77ac57c349e1.PNG)
- - 사진과 같이 STAT(상태)가 Z
-zombie.c 파일에서 지정한 시간이 지나면,  
+ - 사진과 같이 STAT(상태)가 Z인 것이 좀비 프로세스이다!  
+
+3. zombie.c 파일에서 지정한 시간이 지나면,  
 ![3](https://user-images.githubusercontent.com/50162252/122644775-e5081380-d151-11eb-8d44-df2af76f8ddd.PNG)
 
 #### ※ ps au 실행 후 STAT 구분.
