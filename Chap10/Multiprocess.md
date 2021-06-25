@@ -109,6 +109,7 @@ pid_t wait(int* statloc);
 - 이 변수에 저장되는 값에는 다른 정보도 함께 포함되어 있어 매크로 함수를 통한 값의 분리 과정이 필요하다.
 	- WIFEXITED : 자식 프로세스가 정상 종료한 경우 true를 반환한다.
 	- WEXITSTATUS : 자식 프로세스의 전달 값을 반환한다.
+- wait 함수가 호출된 시점에서 종료된 자식 프로세스가 없다면 임의의 자식 프로세스가 종료될 때까지 블로킹(Blocking) 상태에 놓인다는 특징이 있다. -> 함수 호출 주의!
 - 예시) wait 함수의 인자로 status 라는 변수의 주소 값이 전달되었을 때, / 예제 파일 : wait.c
 ```c 
 if(WIFEXITED(status)) // 정상 종료하였다면.
@@ -118,8 +119,24 @@ if(WIFEXITED(status)) // 정상 종료하였다면.
 }
 ```
 
+#### 2. waitpid 함수 사용.
 
+- waitpid 함수는 wait 함수의 블로킹 문제의 해결책이라고 할 수 있다.
 
+```c
+#include <sys/wait.h>
+
+pid_t waitpid(pid_t pid, int* statloc, int options);
+// 성공 시 종료된 자식 프로세스의 ID(또는 0), 실패 시 -1 반환.
+```
+
+- 각 변수 설명.
+
+	1. pid : 종료를 확인하고자 하는 자식 프로세스의 ID 전달.
+	2. statloc : wait 함수의 매개변수 statloc과 동일한 의미.
+	3. options : wait.h. 헤더파일에 선언된 상수 WNOHANG을 인자로 전달하면 종료된 자식 프로세스가 없어도 블로킹 상태에 있지않고 0을 반환하면서 함수를 빠져 나온다.
+	
+- 예제 파일 : waitpid.c
 
 
 
