@@ -129,18 +129,58 @@ if(WIFEXITED(status)) // 정상 종료하였다면.
 pid_t waitpid(pid_t pid, int* statloc, int options);
 // 성공 시 종료된 자식 프로세스의 ID(또는 0), 실패 시 -1 반환.
 ```
-
 - 각 변수 설명.
 
 	1. pid : 종료를 확인하고자 하는 자식 프로세스의 ID 전달.
 	2. statloc : wait 함수의 매개변수 statloc과 동일한 의미.
-	3. options : wait.h. 헤더파일에 선언된 상수 WNOHANG을 인자로 전달하면 종료된 자식 프로세스가 없어도 블로킹 상태에 있지않고 0을 반환하면서 함수를 빠져 나온다.
+	3. options : <wait.h> 헤더파일에 선언된 상수 WNOHANG을 인자로 전달하면 종료된 자식 프로세스가 없어도 블로킹 상태에 있지않고 0을 반환하면서 함수를 빠져 나온다.
 	
 - 예제 파일 : waitpid.c
 
+#### 3. 시그널 핸들링
 
+ - 시그널 : 특정상황이 발생했음을 알리기 위해 운영체제가 프로세스에게 전달하는 메시지를 의미.
+ - 핸들링 : 그 메시지에 반응해서 메시지와 연관된 미리 정의된 작업이 진행되는 것.
 
+※ JAVA는 프로세스나 쓰레드의 생성 방법을 언어 차원에서 제공한다.(원래는 운영체제 차원에서 지원되는 것이 당연함)
+ 	즉, 운영체제의 종류와 상관없이 동일하게 적용가능하다.  
 
+##### 시그널과 signal 함수
+ 프로세스는 자식 프로세스의 종료라는 상황 발생시, 특저 함수의 호출을 운영체제에게 요구한다.
+ 
+```c
+#include <signal.h>
 
+void(*signal(int signo, void(*func)(int)))(int);
+// 시그널 발생시 호출되도록 이전에 등록된 함수의 포인터 반환.
+```
+ - 함수 이름 : signal
+ - 매개변수 : ```c int signo, void(*func)(int)```
+ - 반환형 : 매개변수형이 int이고 반환형이 void인 함수 포인터.
 
+첫 번째 인자로 특정 상황에 대한 정보를, 두 번째 인자로 특정 상황에서 호출될 함수의 주소 값(포인터)를 전달한다.
+그러면 첫 번째 인자를 통해 명시된 상황 발생 시, 두 번째 인자로 전달된 주소 값의 함수가 호출된다.
+
+##### sigaction 함수.
+ : sigaction 함수는 signal 함수를 대체할 수 있고 훨씬 안정적으로 동작한다.  
+ 요즘은 signal 함수를 사용하지 않는다.
+
+```c
+#include <signal.h>
+
+int sigaction(int signo, const struct sigaction *act, struct sigaction* oldact);
+// 성공 시 0, 실패 시 -1 반환.
+```
+- signo : signal 함수와 마찬가지로 시그널의 정보를 인자로 전달.
+- act : 첫 번째 인자로 전달된 상수에 해당하는 시그널 발생시 호출될 함수의 정보 전달.
+- oldact : 이전에 등록되었던 시그널 핸들러의 함수 포인터를 얻는데 사용되는 인자, 필요없으면 0 전달.
+
+- ※ sigaction 구조체.
+```c 
+struct sigaction{
+	void (*sa_handler)(int); // 시그널 핸들러의 함수 포인터값 저장.
+	sigset_t sa_mask;
+	int sa_flags;
+}
+```
 
