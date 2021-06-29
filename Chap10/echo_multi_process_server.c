@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	act.sa_handler=read_childproc; 
 	sigemptyset(&act.sa_mask);
 	act.sa_flags=0;
-	state=sigaction(SIGCHLD, &act, 0); // sigaction 함수 실행. ->  변수 act의 
+	state=sigaction(SIGCHLD, &act, 0); // sigaction 함수 실행. -> SIGCHLD 시그널 발생 시, 변수 act의 sa_handler에 저장되어 있는 함수(read_childproc) 수행.
 	serv_sock=socket(PF_INET, SOCK_STREAM, 0);
 	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
