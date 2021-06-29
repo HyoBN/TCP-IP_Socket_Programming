@@ -75,25 +75,19 @@ output buffer size : 87380
 입력하면 각 버퍼의 기존값을 볼 수 있다길래 실행시켜보니  
 reading key "kernel.unprivileged_userns_apparmor_policy"  
 reading key "net.ipv6.conf.all.stable_secret"  
-이런식으로 뜨고 버퍼 크기를 알려주지 않음. 왜 알려주지 않는 이유에 대해서 구름에 문의 해놓았으니 답변오면 올려야지.
+이런식으로 뜨고 버퍼 크기를 알려주지 않음. 왜 알려주지 않는 이유에 대해서 구름에 문의하였다.  
 
-Goorm forum에 문의한 결과)
+Goorm forum에 문의한 결과)  
 
 ![cap](https://user-images.githubusercontent.com/50162252/122038455-920c2480-ce10-11eb-87a1-7b415c5ef963.PNG)
 
-음.... 그럼 도커 컨테이너는 왜 버퍼 크기를 못 보게 하는 걸까  
+도커에 대한 지식이 부족하여 어떤 권한 때문에 차이가 발생하는지, 일반 리눅스와 어떤 차이가 있는지 잘 모르겠지만  
+결론적으로 시스템 차이로 인해 버퍼 사이즈가 다르게 나온다는 것을 알게 되었다.
 
-웹 컴파일러에서 실행해본 결과는(두 가지 컴파일러로 돌려봄),  
+※윈도우는 이렇게 나온다.    
 input buffer size : 131072  
 output buffer size : 16384  
-가 나옴.  이 두 수는 모두 2의 배수이다. 87380은 어디서 나온 숫자일까?
-이건 window에서 실행한 거라 책과는 다른 결과가 나온 것으로 생각됨.  
-시스템마다 버퍼의 크기는 다르기 때문!
 
-
-
-일단 구름IDE가 아닌 기존 리눅스 환경에서는 값이 책과 동일하게 나오는지 확인해보고,  
-이 상관관계에 대해서 더 찾아볼 예정.
 
 -------------
 
@@ -129,6 +123,7 @@ option=TRUE:
 setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void*)&option, optlen);
 ```
 
+----------------
 
 ### TCP_NODELAY
 
@@ -158,4 +153,4 @@ Nagle 알고리즘을 적용하지 않아도 패킷의 수가 크게 증가하�
 int opt_val=1;
 setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (void*)&opt_val, sizeof(opt_val));
 ```
-TCP_NODELAY 옵션 값을 1로 설정하면 Nagle 알고리즘 적용이 중단된다. 0이면 적용 중.
+- TCP_NODELAY 옵션 값을 1로 설정하면 Nagle 알고리즘 적용이 중단된다. 0이면 적용 중.
