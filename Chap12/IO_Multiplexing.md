@@ -25,3 +25,28 @@ select 함수를 사용하면 한 곳에 여러 개의 파일 디스크립터를
  : 파일 디스크립터, 검사의 범위, 타임아웃 설정 -> select 함수 호출 -> 호출결과 확인.
  
 #### 1. 파일 디스크립터 설정.
+ - 관찰항목(수신, 전송, 예외)에 따라 파일 디스클립터를 구분하여 모아야 한다.
+ - 이렇게 세 묶음으로 모을 때 fd_set형 변수를 사용한다.
+	- fd_set형 변수는 0과 1로 표현되는 비트 단위로 이루어진 배열이다.
+	- 배열의 인덱스가 1이면 해당 인덱스의 파일 디스크립터가 관찰 대상임을 의미한다.
+	- fd_set형 변수에 값을 등록하거나 변경할 때에는 매크로 함수를 통해 이뤄진다.
+		- 1. FD_ZERO(fd_set *fdset): fdset을 모두 0으로 초기화.
+		- 2. FD_SET(int fd, fd_set *fdset) : fdset에 fd로 전달된 파일 디스크립터 정보를 등록한다.
+		- 3. FD_CLR(int fd, fd_set *fdset) : fdset에 fd로 전달된 파일 디스크립터 정보를 삭제한다.
+		- 4. FD_ISSET(int fd, fd_set *fdset) : fdset에 fd로 전달된 파일 디스크립터 정보가 있으면 양수를 반환한다.
+
+```c
+#include <sys/select.h>
+#include <sys/time.h>
+
+int select(int maxfd, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval *timeout);
+// 성공시 0이상, 실패 시 -1 반환.
+```
+#### select 함수의 각 매개변수.  
+ - maxfd : 검사 대상이 되는 파일 디스크립터 수.
+ - readset : fd_set형 변수에 '수신된 데이터의 존재여부'에 관심있는 파일 디스크립터 정보를 모두 등록, 주소값 전달.
+ - writeset : fd_set형 변수에 '블로킹 없는 데이터 전송의 가능여부'에 관심있는 파일 디스크립터 정보를 모두 등록, 주소값 전달.
+ - exceptset : fd_set형 변수에 '예외상황의 발생여부'에 관심있는 파일 디스크립터 정보를 모두 등록, 주소값 전달.
+ - timeout : select 함수호출 이후 무한정 블로킹에 빠지지않도록 타임아웃을 설정하기 위한 인자 전달.
+ - 반환값 : 변화가 발생한 파일 디스크립터의 수 의미 / 오류 발생시 -1 반환.
+ 
