@@ -43,3 +43,49 @@ ssize_t recv(int sockfd, const void* buf, size_t nbytes, int flags);
 
 
 ## readv & writev 입출력 함수.
+
+ : 데이터를 모아서 전송하고, 모아서 수신하는 기능의 함수.
+
+### writev 함수.
+
+```c
+#include <sys/uio.h>
+
+ssize_t writev(int filedes, const struct iovec* iov, int iovcnt);
+// 성공시 전송된 바이트 수, 실패 시 -1 반환
+```
+
+- writev의 매개변수들.
+	- filedes : 데이터 전송의 목적지를 나타내는 소켓의 파일 디스크립터 전달.
+	- iov : 구조체 iovec 배열의 주소 값 전달
+	- iovcnt : 두 번째 인자로 전달된 주소 값이 가리키는 배열의 길이정보 전달.
+
+ - iovec 구조체의 정의.
+```c
+struct iovec
+{
+	void* iov_base; // 버퍼의 주소 정보
+	size_t iov_len; // 버퍼의 크기 정보
+}
+```
+
+### readv 함수
+
+```c
+#include <sys/uio.h>
+
+ssize_t readv(int filedes, const struct iovec* iov, int iovcnt);
+// 성공시 수신된 바이트 수, 실패 시 -1 반환
+```
+
+- writev의 매개변수들.
+	- filedes : 데이터 수신할 파일 혹은 소켓의 파일 디스크립터 전달.
+	- iov : 데이터를 저장할 위치와 크기 정보를 담고 있는 구조체 iovec 배열의 주소 값 전달
+	- iovcnt : 두 번째 인자로 전달된 주소 값이 가리키는 배열의 길이정보 전달.
+
+
+### readv & writev 함수의 적절한 사용.
+
+- 예를 들어, 전송할 데이터가 여러 개의 버퍼에 나뉘어 있는 경우, write 함수를 여러 번 호출하는 것보다 writev 함수를 딱 한 번 호출하는 것이 효율적임.
+
+- 한 번에 모든 데이터를 출력버퍼로 밀어 넣기 때문에 하나의 퍀심나 생성되어 전송될 확률이 높다.
