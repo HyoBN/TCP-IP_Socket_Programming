@@ -104,7 +104,7 @@ int epoll_wait(int epfd, struct epoll_event* events, int maxevents, int timeout)
 	- 1인 구간에서는 레벨 트리거를 몇 번이고 수행해도 그때 마다 이벤트가 발생한다.
 	
  - 엣지 트리거 : 입력버퍼로 데이터가 수신된 상황에서 딱 한 번만 이벤트가 등록된다.
- 	- 설명 사진)
+ 	- 설명 사진)  
 	![et](https://user-images.githubusercontent.com/50162252/125166618-74479a80-e1d7-11eb-9062-0139182c1ecb.PNG)  
 	- 0에서 1로 바뀌는 순간(상승 에지 트리거)에만 이벤트를 발생시킨다.
 ※ select 모델은 레벨 트리거 방식으로 동작한다.
