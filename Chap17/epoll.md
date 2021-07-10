@@ -111,3 +111,4 @@ int epoll_wait(int epfd, struct epoll_event* events, int maxevents, int timeout)
 
 ##### 레벨 트리거와 다르게 엣지 트리거는 데이터의 수신과 데이터가 처리되는 시점을 분리할 수 있다.
 
+###### 레벨, 엣지 트리거 사진 출처 : https://soft.plusblog.co.kr/55
