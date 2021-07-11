@@ -132,3 +132,13 @@ int sem_wait(sem_t *sem);
 다른 쓰레드가 sem_post 함수를 호출하면 세마포어의 값이 1이 되고 이를 0으로 감소시키며 블로킹 상태를 빠져나간다.  
 이러한 특징을 이용하여 임계영역을 동기화시킨다.
 
+
+##### 쓰레드의 소멸과 멀티쓰레드 기반의 다중접속 서버 구현.
+ - chat_server.c 파일과 chat_clnt.c 파일. 
+ - 클라이언트 간 멀티 채팅.
+ - gcc chat_serv.c -D_REENTRANT -o cserv -lpthread 
+ - ./cserv 9190 
+ - 입력하여 서버 실행.
+ - gcc chat_clnt.c -D_REENTRANT -o cclnt -lpthread 
+ - ./cclnt 127.0.0.1 9190 yhb(이름)
+ - 입력하여 클라이언트 실행.
