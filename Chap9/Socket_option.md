@@ -52,42 +52,24 @@ int setsockopt(int sock, int level, int optname, const void *optval, socklen_t o
 
 ### SO_SNDBUF & SO_RCVBUF
 
-입출력버퍼와 관련 있는 소켓 옵션이다.
+입출력버퍼와 관련 있는 소켓 옵션이다.  
 SO_SNDBUF는 출력버퍼의 크기와 관련된 옵션이고,  
 SO_RCVBUF는 입력버퍼의 크기와 관련된 옵션이다.  
-즉, 이 두 옵션을 이용해서 입출력 버퍼의 크기를 참조할 수 있을 뿐만 아니라, 변경도 가능하다.
+즉, 이 두 옵션을 이용해서 입출력 버퍼의 크기를 참조할 수 있을 뿐만 아니라, 변경도 가능하다.  
 
 > 예제 : 'get_buf.c', 'set_buf.c'
 
 #### get_buf.c 예제 실행 결과.
 
-구름IDE에서 돌려본 결과,
+- 구름IDE에서 돌려본 결과.
 input buffer size : 87380
 output buffer size : 87380
-이 나옴.
 
-책 결과값으로는 87380, 16384가 나와야하는데 왜 input, output buffer 사이즈가 같게 나올까?  
-단순 시스템 차이인지 구름ide에서 이유가 있어서 그렇게 설정한 것인지 또, 시스템별로 어느정도의 차이가 있는지 궁금해졌다.  
-
-구글링을 해보니 터미널 창에서,  
-> sysctl -a | grep mem  
-정상적인 실행 결과 : https://rocksea.tistory.com/64  
-입력하면 각 버퍼의 기존값을 볼 수 있다길래 실행시켜보니  
-reading key "kernel.unprivileged_userns_apparmor_policy"  
-reading key "net.ipv6.conf.all.stable_secret"  
-이런식으로 뜨고 버퍼 크기를 알려주지 않음. 왜 알려주지 않는 이유에 대해서 구름에 문의하였다.  
-
-Goorm forum에 문의한 결과)  
-
-![cap](https://user-images.githubusercontent.com/50162252/122038455-920c2480-ce10-11eb-87a1-7b415c5ef963.PNG)
-
-도커에 대한 지식이 부족하여 어떤 권한 때문에 차이가 발생하는지, 일반 리눅스와 어떤 차이가 있는지 잘 모르겠지만  
-결론적으로 시스템 차이로 인해 버퍼 사이즈가 다르게 나온다는 것을 알게 되었다.
-
-※윈도우는 이렇게 나온다.    
+- 윈도우에서 돌려본 결과.    
 input buffer size : 131072  
 output buffer size : 16384  
 
+결론적으로 시스템 차이로 인해 버퍼 사이즈가 다르게 나온다는 것을 알게 되었다.
 
 -------------
 
