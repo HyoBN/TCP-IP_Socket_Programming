@@ -1,4 +1,4 @@
-# 다양한 입출력 함수들
+g# 다양한 입출력 함수들
 
 ## send & recv 입출력 함수.
 
@@ -44,7 +44,7 @@ ssize_t recv(int sockfd, const void* buf, size_t nbytes, int flags);
 
 ## readv & writev 입출력 함수.
 
- : 데이터를 모아서 전송하고, 모아서 수신하는 기능의 함수.
+- 데이터를 모아서 전송하고, 모아서 수신하는 기능의 함수.
 
 ### writev 함수.
 
