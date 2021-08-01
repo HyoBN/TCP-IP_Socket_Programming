@@ -40,7 +40,7 @@ select 함수를 사용하면 한 곳에 여러 개의 파일 디스크립터를
 #include <sys/time.h>
 
 int select(int maxfd, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval *timeout);
-// 성공시 0이상, 실패 시 -1 반환.
+// 성공시 0 이상 정수, 실패 시 -1 반환.
 ```
 #### select 함수의 각 매개변수.  
  - maxfd : 검사 대상이 되는 파일 디스크립터 수.
@@ -49,4 +49,9 @@ int select(int maxfd, fd_set *readset, fd_set *writeset, fd_set *exceptset, cons
  - exceptset : fd_set형 변수에 '예외상황의 발생여부'에 관심있는 파일 디스크립터 정보를 모두 등록, 주소값 전달.
  - timeout : select 함수호출 이후 무한정 블로킹에 빠지지않도록 타임아웃을 설정하기 위한 인자 전달.
  - 반환값 : 변화가 발생한 파일 디스크립터의 수 의미 / 오류 발생시 -1 반환.
+ 
+ 
+ 
+ 
+ 
  
