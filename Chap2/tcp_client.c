@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) == -1)
 		error_handling("connect() error!");
 	
-	while(read_len = read(sock, &message[idx++],1)) // read를 반복 호출, read 함수가 호출될 때마다 1바이트씩 데이터를 읽어들인다. 
+	while(read_len = read(sock, &message[idx++],1)) // read를 반복 호출, read 함수가 호출될 때마다 1바이트씩 데이터를 읽어들인다. message가 11글자이므로 11번 호출됨.
 	{
 		if(read_len == -1)
 			error_handling("read() error!");
