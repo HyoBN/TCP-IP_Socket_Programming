@@ -17,7 +17,7 @@ int socket(int domain, int type, int protocol);
 - PF_INET : IPv4 인터넷 프로토콜 체계.
 - PF_INET6 : IPv6 인터넷 프로토콜 체계.
 - PF_LOCAL :로컬 통신을 위한 UNIX 프로토콜 체계.
-- PF_PACKET Low Level 솤셍르 위한 프로토콜 체계.
+- PF_PACKET Low Level 소켓을 위한 프로토콜 체계.
 - PF_IPX : IPX 노벨 프로토콜 체계.
 
 **주로 PF_INET(IPv4 인터넷  프로토콜 체계)를 사용.**
@@ -28,20 +28,20 @@ int socket(int domain, int type, int protocol);
 
 
 
-### 1. 연결지향형 소켓(SOCK_STREAM).
+### 1. 연결지향형 소켓(SOCK_STREAM) - TCP.
 
 > socket 함수의 두 번째 인자로 SOCK_STREAM을 전달하면 연결지향형 소켓이 생성된다.
 
 
 **연결지향형 소켓의 데이터 송수신 방식 특징**
-1. 중간에 데이터가 소멸되지 않고 목적지로 전송된다.
+1. 중간에 데이터가 소멸되지 않고 목적지로 전송된다. 즉, 에러나 데이터의 손실 없이 전달.
 2. 전송하는 순서대로 데이터가 수신된다.
 3. 전송되는 데이터의 경계(Boundary)가 존재하지 않는다. - 데이터를 전송할 때 데이터를 몇 번 write하더라도 한 번의 read로 전부 읽어들일 수 있다. 이를 경계가 존재하지 않는다고 표현한다.
 > 이를 공장의 컨베이어 벨트에 비유할 수 있다.
 
 
 
-### 2. 비 연결지향형 소켓(SOCK_DGRAM).
+### 2. 비 연결지향형 소켓(SOCK_DGRAM) - UDP.
 > socket 함수의 두 번째 인자로 SOCK_DGRAM을 전달하면 비 연결지향형 소켓이 생성된다.
 
 
